@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DB・データ基盤選定／導入支援 ワイヤーフレーム</title>
+  <style>
+    :root {
+      --text: #111827;
+      --muted: #5f6673;
+      --line: #d9dee8;
+      --bg: #f6f7f9;
+      --white: #ffffff;
+      --blue: #0b84ff;
+      --navy: #050619;
+      --navy-2: #101828;
+      --tag: #eef1f6;
+      --light-blue: #eaf3ff;
+      --pale: #f8fafc;
+      --shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.75;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .hero {
+      min-height: 620px;
+      background:
+        linear-gradient(180deg, rgba(3, 9, 30, 0.96), rgba(3, 9, 30, 0.92)),
+        radial-gradient(circle at 50% 20%, rgba(11, 132, 255, 0.20), transparent 38%),
+        #06103f;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 96px 32px;
+      text-align: center;
+    }
+
+    .hero-inner {
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      padding: 6px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: #dbeafe;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      line-height: 1.35;
+      margin: 0 0 28px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 0 auto 34px;
+      color: #e5e7eb;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .hero-actions,
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      height: 46px;
+      padding: 0 24px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+    }
+
+    .btn-outline {
+      background: #fff;
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+    .section {
+      padding: 92px 56px;
+    }
+
+    .section-white {
+      background: #fff;
+    }
+
+    .section-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .wide-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      line-height: 1.45;
+      margin: 0 0 14px;
+      letter-spacing: 0.04em;
+    }
+
+    .section-title p {
+      max-width: 820px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .reason-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .reason-card,
+    .choice-card,
+    .strength-card,
+    .support-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .reason-card {
+      padding: 28px;
+      min-height: 188px;
+    }
+
+    .card-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: var(--light-blue);
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .reason-card h3,
+    .strength-card h3,
+    .support-item h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .reason-card p,
+    .choice-card p,
+    .strength-card p,
+    .support-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .choice-card {
+      padding: 28px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .choice-card h3 {
+      font-size: 22px;
+      line-height: 1.35;
+      margin: 0 0 8px;
+    }
+
+    .choice-card .catch {
+      margin: 0 0 18px;
+      color: var(--navy-2);
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.6;
+    }
+
+    .choice-card .btn {
+      margin-top: auto;
+      min-width: 132px;
+      height: 40px;
+      font-size: 13px;
+      padding: 0 18px;
+    }
+
+    .choice-card.is-wide {
+      grid-column: span 1;
+    }
+
+    .anchor-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .anchor-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .product-section {
+      border-top: 1px solid var(--line);
+      padding: 72px 0;
+    }
+
+    .product-section:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .product-header {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 42px;
+      align-items: start;
+      margin-bottom: 36px;
+    }
+
+    .product-name-block {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 24px;
+    }
+
+    .product-label {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--tag);
+      color: #4b5563;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .product-name-block h2 {
+      margin: 0 0 12px;
+      font-size: 32px;
+      line-height: 1.35;
+    }
+
+    .product-name-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .product-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .detail-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .detail-card h3 {
+      margin: 0 0 12px;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .detail-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .detail-card ul {
+      margin: 0;
+      padding-left: 1.2em;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .detail-card li + li {
+      margin-top: 6px;
+    }
+
+    .strength-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .strength-card {
+      padding: 28px;
+    }
+
+
+    .strength-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .strength-list .strength-card {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 22px;
+      align-items: start;
+      padding: 28px 32px;
+    }
+
+    .strength-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .strength-body h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .strength-body p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .support-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .support-item {
+      padding: 22px;
+      min-height: 136px;
+    }
+
+    .support-item h3 {
+      font-size: 16px;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, #f1f3f7, #ffffff);
+      text-align: center;
+      padding: 100px 56px;
+      border-top: 1px solid var(--line);
+    }
+
+    .cta h2 {
+      font-size: 32px;
+      margin: 0 0 16px;
+      line-height: 1.45;
+    }
+
+    .cta p {
+      max-width: 820px;
+      color: var(--muted);
+      margin: 0 auto 28px;
+      font-size: 15px;
+    }
+
+    .wire-note {
+      max-width: 1120px;
+      margin: 32px auto;
+      padding: 0 56px;
+      color: #8b95a5;
+      font-size: 12px;
+    }
+
+    @media (max-width: 1100px) {
+      .reason-grid,
+      .strength-grid,
+      .support-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .choice-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .product-header {
+        grid-template-columns: 1fr;
+      }
+
+      .product-name-block {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: auto;
+        padding: 78px 22px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .section,
+      .cta {
+        padding: 64px 20px;
+      }
+
+      .section-title h2,
+      .cta h2 {
+        font-size: 26px;
+      }
+
+      .reason-grid,
+      .choice-grid,
+      .product-detail-grid,
+      .strength-grid,
+      .support-list {
+        grid-template-columns: 1fr;
+      }
+
+      .strength-list .strength-card {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 24px;
+      }
+
+      .product-section {
+        padding: 56px 0;
+      }
+
+      .product-name-block h2 {
+        font-size: 26px;
+      }
+
+      .hero-actions,
+      .cta-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .wire-note {
+        padding: 0 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">DB / Data Platform Selection</div>
+        <h1>課題に応じたデータベース・データ基盤の<br />選定から導入・運用まで支援</h1>
+        <p>
+          MySQL、MariaDB、TiDB、Oracle Autonomous AI Database、ClickHouseなど、
+MySQL、MariaDB、TiDB、Oracle Autonomous AI Database、ClickHouseなど、用途や要件に応じたデータベース・データ基盤を選定。既存システムの安定運用、大量データへの対応、高速分析、AI活用まで見据え、設計・導入・移行・運用まで一貫して支援します。        </p>
+        <div class="hero-actions">
+          <a href="#choices" class="btn btn-primary">対応製品を見る</a>
+          <a href="https://pasona-dataanddesign.co.jp/contact/" class="btn btn-secondary">お問い合わせ</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white">
+      <div class="section-inner">
+        <div class="section-title">
+          <h2>データ活用・AI活用の成果は、<br />データ基盤の選定で変わります</h2>
+          <p>
+            システムの安定運用、データ量の増加、高速分析、AI活用、運用負荷やコスト最適化など、
+            企業が求める要件によって、適したデータベース・データ基盤は異なります。
+          </p>
+        </div>
+
+        <div class="reason-grid">
+          <article class="reason-card">
+            <span class="card-number">01</span>
+            <h3>安定運用を重視したい</h3>
+            <p>既存システムを安定して稼働させるために、保守性や運用体制まで考慮したDB選定が重要です。</p>
+          </article>
+          <article class="reason-card">
+            <span class="card-number">02</span>
+            <h3>データ量・アクセス増加に対応したい</h3>
+            <p>将来的なデータ増加や高トラフィックを見据え、拡張性のある基盤を検討します。</p>
+          </article>
+          <article class="reason-card">
+            <span class="card-number">03</span>
+            <h3>高速分析を実現したい</h3>
+            <p>ログ分析、行動データ分析、リアルタイム分析など、分析用途に合わせた基盤選定が必要です。</p>
+          </article>
+          <article class="reason-card">
+            <span class="card-number">04</span>
+            <h3>AI活用につなげたい</h3>
+            <p>生成AIやAIチャットの活用には、データを参照・活用しやすい基盤づくりが欠かせません。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="choices">
+      <div class="wide-inner">
+        <div class="section-title">
+          <h2>用途に応じて選べる5つのデータベース・データ基盤</h2>
+          <p>
+            用途や要件に応じて、最適なデータベース・データ基盤は異なります。
+            パソナデータ＆デザインは以下の製品に対応し、選定から導入・運用まで支援します。
+          </p>
+        </div>
+
+        <div class="choice-grid">
+          <article class="choice-card">
+            <h3>MySQL</h3>
+            <p class="catch">既存システムの安定運用に</p>
+            <p>Webシステムや業務アプリケーションなど、既存DBの運用・保守・移行・性能改善に適しています。</p>
+            <a href="#mysql" class="btn btn-outline">詳しく見る</a>
+          </article>
+
+          <article class="choice-card">
+            <h3>MariaDB</h3>
+            <p class="catch">オープンソースDBの本番運用・高可用性に</p>
+            <p>性能、可用性、セキュリティ、運用性を重視したい環境に適しています。</p>
+            <a href="#mariadb" class="btn btn-outline">詳しく見る</a>
+          </article>
+
+          <article class="choice-card">
+            <h3>TiDB</h3>
+            <p class="catch">大量データ・高トラフィックへの対応に</p>
+            <p>MySQL互換性を活かしながら、データ量やアクセス増加に対応しやすい分散SQLデータベースです。</p>
+            <a href="#tidb" class="btn btn-outline">詳しく見る</a>
+          </article>
+
+          <article class="choice-card">
+            <h3>Oracle Autonomous AI Database</h3>
+            <p class="catch">AI活用を見据えた統合データ基盤に</p>
+            <p>業務データや多様なデータを活用し、生成AI・分析・高度なデータ活用につなげたい場合に適しています。</p>
+            <a href="#oracle" class="btn btn-outline">詳しく見る</a>
+          </article>
+
+          <article class="choice-card">
+            <h3>ClickHouse</h3>
+            <p class="catch">大量データの高速分析・可視化に</p>
+            <p>ログ分析、行動データ分析、リアルタイム分析など、大量データをすばやく集計・分析したい用途に適しています。</p>
+            <a href="#clickhouse" class="btn btn-outline">詳しく見る</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white">
+      <div class="section-inner">
+        <div class="section-title">
+          <h2>製品別の特徴・メリット・支援内容</h2>
+          <p>
+            各製品について、「どのような課題に向いているか」「なぜ使うとよいのか」「主なメリット」「私たちが提供する支援」の観点で整理しています。
+          </p>
+        </div>
+
+        <article class="product-section" id="mysql">
+          <div class="product-header">
+            <div class="product-name-block">
+              <span class="product-label">既存システムの安定運用に</span>
+              <h2>MySQL</h2>
+              <p>Webシステムや業務アプリケーションなどで利用されるDBの運用・保守・移行・性能改善に向いています。</p>
+            </div>
+            <div class="product-detail-grid">
+              <div class="detail-card">
+                <h3>どのような課題に向いているか</h3>
+                <ul>
+                  <li>既存Webシステムや業務アプリの安定運用を見直したい</li>
+                  <li>保守・移行・性能改善を進めたい</li>
+                  <li>既存環境を活かしながらDB運用を最適化したい</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>なぜこの製品を使うとよいのか</h3>
+                <p>既存システムとの親和性が高く、運用・保守・移行の選択肢が豊富です。安定運用を重視する環境で検討しやすい選択肢です。</p>
+              </div>
+              <div class="detail-card">
+                <h3>主なメリット</h3>
+                <ul>
+                  <li>既存システムに適用しやすい</li>
+                  <li>保守・移行・性能改善に取り組みやすい</li>
+                  <li>運用ノウハウを活かしやすい</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>私たちが提供する支援</h3>
+                <ul>
+                  <li>現状診断</li>
+                  <li>保守・サポート</li>
+                  <li>バージョンアップ・移行支援</li>
+                  <li>性能改善・チューニング</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-section" id="mariadb">
+          <div class="product-header">
+            <div class="product-name-block">
+              <span class="product-label">本番運用・高可用性に</span>
+              <h2>MariaDB</h2>
+              <p>オープンソースDBを活用しながら、可用性・性能・セキュリティ・運用性を重視したい環境に向いています。</p>
+            </div>
+            <div class="product-detail-grid">
+              <div class="detail-card">
+                <h3>どのような課題に向いているか</h3>
+                <ul>
+                  <li>オープンソースDBを本番運用で使いたい</li>
+                  <li>可用性やセキュリティも重視したい</li>
+                  <li>MySQL系DBの移行先を検討したい</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>なぜこの製品を使うとよいのか</h3>
+                <p>OSSの柔軟性を活かしつつ、本番運用で求められる安定性や運用性を重視したい場合に検討しやすい選択肢です。</p>
+              </div>
+              <div class="detail-card">
+                <h3>主なメリット</h3>
+                <ul>
+                  <li>OSSベースで柔軟に活用しやすい</li>
+                  <li>本番運用での安定性を高めやすい</li>
+                  <li>既存環境の見直し候補として使いやすい</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>私たちが提供する支援</h3>
+                <ul>
+                  <li>製品選定</li>
+                  <li>設計・導入</li>
+                  <li>移行支援</li>
+                  <li>高可用性構成の検討</li>
+                  <li>運用支援</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-section" id="tidb">
+          <div class="product-header">
+            <div class="product-name-block">
+              <span class="product-label">大量データ・高トラフィックに</span>
+              <h2>TiDB</h2>
+              <p>MySQL互換性を活かしながら、データ量やアクセス増加に対応しやすい分散SQLデータベースです。</p>
+            </div>
+            <div class="product-detail-grid">
+              <div class="detail-card">
+                <h3>どのような課題に向いているか</h3>
+                <ul>
+                  <li>データ量増加に対応したい</li>
+                  <li>高トラフィック環境を安定運用したい</li>
+                  <li>MySQL互換性を活かしながらスケールしたい</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>なぜこの製品を使うとよいのか</h3>
+                <p>分散SQLデータベースとしてスケールしやすく、大量データや高負荷環境を見据えた基盤づくりに適しています。</p>
+              </div>
+              <div class="detail-card">
+                <h3>主なメリット</h3>
+                <ul>
+                  <li>水平スケールしやすい</li>
+                  <li>MySQL互換性を活かしやすい</li>
+                  <li>データ量・アクセス増加に対応しやすい</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>私たちが提供する支援</h3>
+                <ul>
+                  <li>適用可否の評価</li>
+                  <li>構成検討</li>
+                  <li>導入・移行支援</li>
+                  <li>性能検証・運用支援</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-section" id="oracle">
+          <div class="product-header">
+            <div class="product-name-block">
+              <span class="product-label">AI活用を見据えた統合データ基盤に</span>
+              <h2>Oracle Autonomous AI Database</h2>
+              <p>業務データや多様なデータを活用し、生成AI・分析・高度なデータ活用につなげたい場合に向いています。</p>
+            </div>
+            <div class="product-detail-grid">
+              <div class="detail-card">
+                <h3>どのような課題に向いているか</h3>
+                <ul>
+                  <li>AI活用を見据えた統合データ基盤を整備したい</li>
+                  <li>生成AI活用につなげたい</li>
+                  <li>運用負荷を抑えながら高度なデータ活用を進めたい</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>なぜこの製品を使うとよいのか</h3>
+                <p>AI時代を見据えたデータ活用基盤を構築しやすく、業務データを活用した生成AI・分析活用の土台として検討できます。</p>
+              </div>
+              <div class="detail-card">
+                <h3>主なメリット</h3>
+                <ul>
+                  <li>AI活用につながる基盤を整えやすい</li>
+                  <li>多様なデータ活用を検討しやすい</li>
+                  <li>運用負荷を抑えた構成を検討しやすい</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>私たちが提供する支援</h3>
+                <ul>
+                  <li>要件整理</li>
+                  <li>導入構成の検討</li>
+                  <li>OCI活用支援</li>
+                  <li>AI活用基盤への接続支援</li>
+                  <li>運用支援</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-section" id="clickhouse">
+          <div class="product-header">
+            <div class="product-name-block">
+              <span class="product-label">高速分析・可視化に</span>
+              <h2>ClickHouse</h2>
+              <p>ログ分析、行動データ分析、リアルタイム分析など、大量データをすばやく集計・分析したい用途に向いています。</p>
+            </div>
+            <div class="product-detail-grid">
+              <div class="detail-card">
+                <h3>どのような課題に向いているか</h3>
+                <ul>
+                  <li>ログ分析を高速化したい</li>
+                  <li>大量データをリアルタイムに近い形で分析したい</li>
+                  <li>BIや分析基盤の性能を改善したい</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>なぜこの製品を使うとよいのか</h3>
+                <p>大量データの高速集計・分析に強く、ログ分析、行動データ分析、可視化基盤の強化に適しています。</p>
+              </div>
+              <div class="detail-card">
+                <h3>主なメリット</h3>
+                <ul>
+                  <li>高速な分析処理</li>
+                  <li>大量データの集計に強い</li>
+                  <li>可視化・分析用途に向いている</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h3>私たちが提供する支援</h3>
+                <ul>
+                  <li>適用シナリオ整理</li>
+                  <li>導入支援</li>
+                  <li>データ設計</li>
+                  <li>分析基盤構築</li>
+                  <li>性能最適化</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <div class="section-title">
+          <h2>なぜパソナデータ＆デザインが支援できるのか</h2>
+          <p>
+            特定製品の導入だけでなく、既存環境、クラウド活用、データ活用・AI活用の方向性まで踏まえて、選定から運用まで支援します。
+          </p>
+        </div>
+
+        <div class="strength-list">
+          <article class="strength-card">
+            <span class="strength-number">01</span>
+            <div class="strength-body">
+              <h3>DB運用の知見</h3>
+              <p>MySQL / MariaDBを中心とした運用・保守・移行・性能改善の知見を活かし、既存環境の安定運用から見直しまで支援します。</p>
+            </div>
+          </article>
+
+          <article class="strength-card">
+            <span class="strength-number">02</span>
+            <div class="strength-body">
+              <h3>クラウドまで含めた提案力</h3>
+              <p>OCIやクラウドDBも含めて、データ基盤全体を見据えた構成検討が可能です。オンプレミス、クラウド、ハイブリッド構成を踏まえて提案します。</p>
+            </div>
+          </article>
+
+          <article class="strength-card">
+            <span class="strength-number">03</span>
+            <div class="strength-body">
+              <h3>AI活用を見据えた基盤設計</h3>
+              <p>単なるDB導入だけでなく、データ活用・AI活用につながる基盤整備まで見据えて、将来的な活用方針に合った設計を支援します。</p>
+            </div>
+          </article>
+
+          <article class="strength-card">
+            <span class="strength-number">04</span>
+            <div class="strength-body">
+              <h3>導入後の運用まで支援</h3>
+              <p>選定・導入で終わらず、移行、保守、改善まで伴走します。運用体制や課題に合わせて、継続的な改善を支援します。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white">
+      <div class="section-inner">
+        <div class="section-title">
+          <h2>選定から導入・運用まで一貫して支援します</h2>
+          <p>
+            現状整理から製品選定、構成検討、設計・導入、移行、運用まで、段階に応じて支援します。
+          </p>
+        </div>
+
+        <div class="support-list">
+          <article class="support-item">
+            <h3>現状環境・課題の整理</h3>
+            <p>既存環境、課題、運用体制を整理します。</p>
+          </article>
+          <article class="support-item">
+            <h3>要件整理・製品選定</h3>
+            <p>用途や要件に応じて候補製品を検討します。</p>
+          </article>
+          <article class="support-item">
+            <h3>構成・アーキテクチャ検討</h3>
+            <p>可用性、拡張性、運用性を踏まえて構成を検討します。</p>
+          </article>
+          <article class="support-item">
+            <h3>設計・導入支援</h3>
+            <p>導入に向けた設計・構築を支援します。</p>
+          </article>
+          <article class="support-item">
+            <h3>既存DBからの移行支援</h3>
+            <p>移行計画から実施まで段階的に支援します。</p>
+          </article>
+          <article class="support-item">
+            <h3>性能改善・チューニング</h3>
+            <p>パフォーマンス課題の調査・改善を支援します。</p>
+          </article>
+          <article class="support-item">
+            <h3>運用設計・保守支援</h3>
+            <p>導入後の運用体制や保守を支援します。</p>
+          </article>
+          <article class="support-item">
+            <h3>データ活用・AI活用基盤整備</h3>
+            <p>将来的なデータ活用・AI活用を見据えて整備します。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <h2>データベース・データ基盤の選定に関するご相談はこちら</h2>
+      <p>
+        現状のシステム環境や課題、将来的なデータ活用・AI活用の方向性を踏まえて、
+        最適なデータベース・データ基盤の選定から導入・運用まで支援します。
+      </p>
+      <div class="cta-actions">
+        <a href="https://pasona-dataanddesign.co.jp/contact/" class="btn btn-primary">お問い合わせ</a>
+        <a href="#choices" class="btn btn-outline">対応製品を見る</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="wire-note">
+    ※ワイヤーフレーム確認用のHTMLです。実際のデザイン・文言・リンク先は制作時に調整してください。
+  </div>
+</body>
+</html>
